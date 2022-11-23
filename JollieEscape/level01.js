@@ -7,6 +7,9 @@ class level01 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map1', 'assets/level01.tmj');
+    //load sound effect
+    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+    this.load.audio('collectkey','assets/dingcollect.mp3');
   }
 
   create() {
@@ -39,11 +42,14 @@ class level01 extends Phaser.Scene {
     this.DecorLayer = map1.createLayer("DecorLayer", tilesArray1, 0,0);
     this.EntryLayer = map1.createLayer("EntryLayer", tilesArray1, 0,0);
     
+    //sound effect
+    this.hitenemySnd = this.sound.add('hitenemy');
+    this.collectkeySnd = this.sound.add('collectkey');
 
     // Add main player here with physics.add.sprite
     var startPoint = map1.findObject("ObjectLayer", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
-    this.player.setScale(1);
+    this.player.setScale(1.3);
     this.player.setCollideWorldBounds(true);
     window.player = this.player;
 
@@ -62,8 +68,14 @@ class level01 extends Phaser.Scene {
      this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
      this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
 
-     this.physics.add.overlap(this.player, this.Ant, this.overlap, null, this);
+     this.physics.add.collider(this.player, this.Ant, hitAnt, null, this);
 
+     //player overlap keys
+     this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
+     this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
+     this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
+     this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
+       
     // Add time event / movement here
     this.timedEvent = this.time.addEvent({
       delay: 1000,
@@ -203,7 +215,7 @@ class level01 extends Phaser.Scene {
     });
   }
 
-  overlap(Ant, Jollie) {
+  hitAnt (player, Ant) {
     console.log("Ant overlap with Jollie");
     //play sound
     console.log("play sound");
@@ -217,6 +229,19 @@ class level01 extends Phaser.Scene {
     player.body.setEnable(false);
     console.log("setVisible false");
     player.setVisible(false);
+
+    this.physics.pause();
+    player.setTint(0xff0000);
+    gameOver = true;
+}
+
+collectKey(player, key){
+  console.log("Collect Key");
+  console.log("play sound");
+  this.collectkeySnd.play();
+  key.disableBody(true, true);
+  
+  
 }
 
     // Function to jump to level02

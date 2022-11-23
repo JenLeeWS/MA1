@@ -2,8 +2,8 @@
 let config = {
     type: Phaser.AUTO,
     //pixel size * tile map size * zoom
-    width: 32 * 50,
-    height: 32 * 35,
+    width: 32 * 60,
+    height: 32 * 40,
     
     physics: {
         default: 'arcade',
@@ -18,7 +18,7 @@ let config = {
     },
     backgroundColor: '#000000',
     pixelArt: true,
-    scene: [ preloadScene, main, level01, level02, level03, level04]
+    scene: [ preloadScene, main, story, instruction, level01, level02, level03, level04]
 }
 
 var game = new Phaser.Game(config);

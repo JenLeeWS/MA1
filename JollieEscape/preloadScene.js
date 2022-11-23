@@ -27,16 +27,21 @@ class preloadScene extends Phaser.Scene {
        this.load.image("key", "assets/key.png");
        this.load.image("plant", "assets/plant.png");
        this.load.image("forest", "assets/forest.png");
-
+       this.load.image("intro", "assets/intropage.jpg");
+       
        // Preload any sound and music here
        this.load.audio('bgMusic', 'assets/russianfun.mp3');
        this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+       this.load.audio('collectkey','assets/dingcollect.mp3');
     }
  
    create () {
 
-        this.add.text(100,950, 'Welcome to escape game', {font: '24px Courier', fill: '#ffffff' });
-        this.add.text(100, 1000, 'Press spacebar to continue', {font: '24px Courier', fill: '#ffffff' });
+        this.add.image(0,0, 'intro').setOrigin(0,0);
+        this.add.sprite(1750, 1050, "Jollie").setScale(5).play('left-Jollie');
+                
+        this.add.text(850,1120, 'Welcome to escape game', {font: '30px Futura PT Medium', fill: '#272e66' });
+        this.add.text(850, 1160, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
 
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
@@ -44,6 +49,7 @@ class preloadScene extends Phaser.Scene {
         this.bgMusic = this.sound.add('bgMusic', {loop: true,}).setVolume(0.3);
         this.bgMusic.stop();
         this.hitenemySnd = this.sound.add('hitenemy');
+        this.collectkeySnd = this.sound.add('collectkey');
 
         //this.music.play()
         //window.music = this.music
@@ -81,8 +87,8 @@ class preloadScene extends Phaser.Scene {
         // }, this);
 
         spaceDown.on('down', function(){
-            console.log("level01");
-            this.scene.start("level01");
+            console.log("story");
+            this.scene.start("story");
             }, this );
 
     //Jollie anims create

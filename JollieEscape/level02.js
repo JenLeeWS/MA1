@@ -43,7 +43,7 @@ class level02 extends Phaser.Scene {
     // Add main player here with physics.add.sprite
     var startPoint = map2.findObject("ObjectLayer2", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
-    this.player.setScale(1);
+    this.player.setScale(1.3);
     this.player.setCollideWorldBounds(true);
 
       // //key object
