@@ -38,7 +38,7 @@ class story extends Phaser.Scene {
 
         // Add any text in the main page
         this.add.text(850, 1100, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
-        this.add.text(750, 750, 'Where am I? I do not like it here. I need to escape', {font: '30px Futura PT Medium', fill: '#272e66' });
+        this.add.text(550, 750, 'Where am I? I do not like it here. I need to escape', {font: '50px Futura PT Medium', fill: '#272e66' });
 
         // Create all the game animations here
 

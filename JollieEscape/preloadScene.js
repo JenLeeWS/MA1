@@ -28,6 +28,7 @@ class preloadScene extends Phaser.Scene {
        this.load.image("plant", "assets/plant.png");
        this.load.image("forest", "assets/forest.png");
        this.load.image("intro", "assets/intropage.jpg");
+      
        
        // Preload any sound and music here
        this.load.audio('bgMusic', 'assets/russianfun.mp3');
@@ -44,14 +45,12 @@ class preloadScene extends Phaser.Scene {
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
         //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
-        this.bgMusic = this.sound.add('bgMusic', {loop: true,}).setVolume(0.3);
-        this.bgMusic.stop();
+        this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.1);
+        this.bgMusic.play();
 
         //this.music.play()
         //window.music = this.music
-        window.music = this.music;
-
-           
+                 
         var spaceDown = this.input.keyboard.addKey('SPACE');
         var key1 = this.input.keyboard.addKey(49);
         var key2 = this.input.keyboard.addKey(50);

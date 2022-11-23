@@ -10,6 +10,7 @@ class level01 extends Phaser.Scene {
     //load sound effect
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
     this.load.audio('collectkey','assets/dingcollect.mp3');
+    this.load.image("heart", "assets/heart.png");
   }
 
   create() {
@@ -68,6 +69,7 @@ class level01 extends Phaser.Scene {
      this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
      this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
 
+   
      this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
      this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
 
@@ -76,6 +78,13 @@ class level01 extends Phaser.Scene {
      this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
      this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
      this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
+
+     //heart
+     this.heart1 = this.add.image(100, 50, "heart").setScrollFactor(0).setScale(0.4);
+     this.heart2 = this.add.image(170, 50, "heart").setScrollFactor(0).setScale(0.4);
+     this.heart3 = this.add.image(240, 50, "heart").setScrollFactor(0).setScale(0.4);
+     this.heart4 = this.add.image(310, 50, "heart").setScrollFactor(0).setScale(0.4);
+     
        
     // Add time event / movement here
     this.timedEvent = this.time.addEvent({
@@ -218,18 +227,19 @@ class level01 extends Phaser.Scene {
 
   hitAnt (player, Ant) {
     console.log("Ant overlap with Jollie");
+    //shake the camera
+    console.log("shake screen");
+    this.cameras.main.shake(3000);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-    //shake the camera
-    // console.log("shake screen");
-    // this.camera.level01.shake(100);
+
 
     // //disable Jollie
-    // console.log("disable body");
-    // player.body.setEnable(false);
-    // console.log("setVisible false");
-    // player.setVisible(false);
+    console.log("disable body");
+    player.body.setEnable(false);
+    console.log("setVisible false");
+    player.setVisible(false);
 
     // this.physics.pause();
     // player.setTint(0xff0000);

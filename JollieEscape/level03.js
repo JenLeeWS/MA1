@@ -10,7 +10,7 @@ class level03 extends Phaser.Scene {
     this.load.tilemapTiledJSON('map3', 'assets/level03.tmj');
     //load sound effect
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
-    this.load.audio('collectkey','assets/dingcollect.mp3');
+    this.load.audio('collectkey', 'assets/dingcollect.mp3');
   }
 
   create() {
@@ -92,6 +92,7 @@ class level03 extends Phaser.Scene {
     this.physics.add.overlap(this.player, this.key6, this.collectKey, null, this);
     this.physics.add.overlap(this.player, this.key7, this.collectKey, null, this);
     this.physics.add.overlap(this.player, this.key8, this.collectKey, null, this);
+
         
         // Add time event / movement here
         this.timedEvent = this.time.addEvent({
@@ -303,22 +304,19 @@ class level03 extends Phaser.Scene {
 
   hitAnt (player, Ant) {
     console.log("Ant overlap with Jollie");
+    //shake the camera
+    console.log("shake screen");
+    this.cameras.main.shake(3000);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-    //shake the camera
-    // console.log("shake screen");
-    // this.camera.level01.shake(100);
+
 
     // //disable Jollie
-    // console.log("disable body");
-    // player.body.setEnable(false);
-    // console.log("setVisible false");
-    // player.setVisible(false);
-
-    // this.physics.pause();
-    // player.setTint(0xff0000);
-    // gameOver = true;
+    console.log("disable body");
+    player.body.setEnable(false);
+    console.log("setVisible false");
+    player.setVisible(false);
 }
 
 collectKey(player, key){
