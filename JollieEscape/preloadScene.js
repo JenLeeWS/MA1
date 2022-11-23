@@ -31,8 +31,6 @@ class preloadScene extends Phaser.Scene {
        
        // Preload any sound and music here
        this.load.audio('bgMusic', 'assets/russianfun.mp3');
-       this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
-       this.load.audio('collectkey','assets/dingcollect.mp3');
     }
  
    create () {
@@ -48,8 +46,6 @@ class preloadScene extends Phaser.Scene {
         //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
         this.bgMusic = this.sound.add('bgMusic', {loop: true,}).setVolume(0.3);
         this.bgMusic.stop();
-        this.hitenemySnd = this.sound.add('hitenemy');
-        this.collectkeySnd = this.sound.add('collectkey');
 
         //this.music.play()
         //window.music = this.music

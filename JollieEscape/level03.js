@@ -8,12 +8,19 @@ class level03 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map3', 'assets/level03.tmj');
+    //load sound effect
+    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+    this.load.audio('collectkey','assets/dingcollect.mp3');
   }
 
   create() {
     console.log("*** level03 scene");
 
     var map3 = this.make.tilemap({ key: "map3"});
+
+    //sound effect
+    this.hitenemySnd = this.sound.add('hitenemy');
+    this.collectkeySnd = this.sound.add('collectkey');
     
     let artTiles = map3.addTilesetImage("art", "art");
     let basementTiles = map3.addTilesetImage("basement", "basement");
@@ -65,11 +72,26 @@ class level03 extends Phaser.Scene {
     this.physics.add.sprite(key7.x, key7.y, 'key').setScale(0.75);
     this.physics.add.sprite(key8.x, key8.y, 'key').setScale(0.75);
 
-           //Ant position
-           this.antright1 = this.physics.add.sprite(20, 300, "ant1").play("right-Ant").setScale(0.75);
-           this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
-           this.antright3 = this.physics.add.sprite(1000, 450, "ant3").play("right-Ant").setScale(0.75);
-           this.antright4 = this.physics.add.sprite(40, 1100, "ant4").play("right-Ant").setScale(0.75);
+    //Ant position
+    this.antright1 = this.physics.add.sprite(20, 300, "ant1").play("right-Ant").setScale(0.75);
+    this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
+    this.antright3 = this.physics.add.sprite(1000, 450, "ant3").play("right-Ant").setScale(0.75);
+    this.antright4 = this.physics.add.sprite(40, 1100, "ant4").play("right-Ant").setScale(0.75);
+
+    this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
+    this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
+    this.physics.add.overlap(this.player, this.antright3, this.hitAnt, null, this);
+    this.physics.add.overlap(this.player, this.antright4, this.hitAnt, null, this);
+      
+    //player overlap keys
+    this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key5, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key6, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key7, this.collectKey, null, this);
+    this.physics.add.overlap(this.player, this.key8, this.collectKey, null, this);
         
         // Add time event / movement here
         this.timedEvent = this.time.addEvent({
@@ -278,6 +300,34 @@ class level03 extends Phaser.Scene {
       ],
     });
   }
+
+  hitAnt (player, Ant) {
+    console.log("Ant overlap with Jollie");
+    //play sound
+    console.log("play sound");
+    this.hitenemySnd.play();
+    //shake the camera
+    // console.log("shake screen");
+    // this.camera.level01.shake(100);
+
+    // //disable Jollie
+    // console.log("disable body");
+    // player.body.setEnable(false);
+    // console.log("setVisible false");
+    // player.setVisible(false);
+
+    // this.physics.pause();
+    // player.setTint(0xff0000);
+    // gameOver = true;
+}
+
+collectKey(player, key){
+  console.log("Collect Key");
+  console.log("play sound");
+  this.collectkeySnd.play();
+  key.disableBody(true, true);
+    
+}
 
     // Function to jump to level04
     level04(player, tile) {

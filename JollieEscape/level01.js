@@ -68,7 +68,8 @@ class level01 extends Phaser.Scene {
      this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
      this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
 
-     this.physics.add.collider(this.player, this.Ant, hitAnt, null, this);
+     this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
+     this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
 
      //player overlap keys
      this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
@@ -221,18 +222,18 @@ class level01 extends Phaser.Scene {
     console.log("play sound");
     this.hitenemySnd.play();
     //shake the camera
-    console.log("shake screen");
-    this.camera.main.shake(100);
+    // console.log("shake screen");
+    // this.camera.level01.shake(100);
 
-    //disable Jollie
-    console.log("disable body");
-    player.body.setEnable(false);
-    console.log("setVisible false");
-    player.setVisible(false);
+    // //disable Jollie
+    // console.log("disable body");
+    // player.body.setEnable(false);
+    // console.log("setVisible false");
+    // player.setVisible(false);
 
-    this.physics.pause();
-    player.setTint(0xff0000);
-    gameOver = true;
+    // this.physics.pause();
+    // player.setTint(0xff0000);
+    // gameOver = true;
 }
 
 collectKey(player, key){
