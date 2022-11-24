@@ -37,7 +37,7 @@ class preloadScene extends Phaser.Scene {
    create () {
 
         this.add.image(0,0, 'intro').setOrigin(0,0);
-        this.add.sprite(1750, 1050, "Jollie").setScale(5).play('left-Jollie');
+        this.add.sprite(1750, 1050, "Jollie").setScale(5);
                 
         this.add.text(850,1120, 'Welcome to escape game', {font: '30px Futura PT Medium', fill: '#272e66' });
         this.add.text(850, 1160, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });

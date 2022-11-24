@@ -17,10 +17,6 @@ class level03 extends Phaser.Scene {
     console.log("*** level03 scene");
 
     var map3 = this.make.tilemap({ key: "map3"});
-
-    //sound effect
-    this.hitenemySnd = this.sound.add('hitenemy');
-    this.collectkeySnd = this.sound.add('collectkey');
     
     let artTiles = map3.addTilesetImage("art", "art");
     let basementTiles = map3.addTilesetImage("basement", "basement");
@@ -44,16 +40,22 @@ class level03 extends Phaser.Scene {
     this.FloorLayer3 = map3.createLayer("FloorLayer3", tilesArray3, 0,0);
     this.FurnitureLayer3 = map3.createLayer("FurnitureLayer3", tilesArray3, 0,0);
     this.DecorLayer3 = map3.createLayer("DecorLayer3", tilesArray3, 0,0);
+
+    //sound effect
+    this.hitenemySnd = this.sound.add('hitenemy');
+    this.collectkeySnd = this.sound.add('collectkey');
      
     var startPoint = map3.findObject("ObjectLayer3", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
     this.player.setScale(1.3);
     this.player.setCollideWorldBounds(true);
+    window.player = this.player;
 
     //key object
     // var key1 = map.findObject("ObjectLayer", (obj) => obj.name === "key1");
     // this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key')
 
+    //key object
     var key1 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key1");
     var key2 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key2");
     var key3 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key3");
@@ -63,6 +65,7 @@ class level03 extends Phaser.Scene {
     var key7 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key7");
     var key8 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key8");
 
+    //key position
     this.physics.add.sprite(key1.x, key1.y, 'key').setScale(0.75);
     this.physics.add.sprite(key2.x, key2.y, 'key').setScale(0.75);
     this.physics.add.sprite(key3.x, key3.y, 'key').setScale(0.75);
@@ -78,6 +81,7 @@ class level03 extends Phaser.Scene {
     this.antright3 = this.physics.add.sprite(1000, 450, "ant3").play("right-Ant").setScale(0.75);
     this.antright4 = this.physics.add.sprite(40, 1100, "ant4").play("right-Ant").setScale(0.75);
 
+    //Ant overlap
     this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
     this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
     this.physics.add.overlap(this.player, this.antright3, this.hitAnt, null, this);
@@ -123,20 +127,6 @@ class level03 extends Phaser.Scene {
           loop: false,
         });
 
-    
-    // Add time event / movement here
-    // this.timedEvent = this.time.addEvent({
-    //   delay: 1000,
-    //   callback: this.delayOneSec,
-    //   callbackScope: this,
-    //   loop: false,
-    // });
-
-    // get the tileIndex number in json, +1
-    //mapLayer.setTileIndexCallback(11, this.room1, this);
-
-    // Add custom properties in Tiled called "mouintain" as bool
-
     // What will collider witg what layers
     this.WallLayer3.setCollisionByExclusion(-1, true);
     this.FurnitureLayer3.setCollisionByExclusion(-1, true);
@@ -156,32 +146,7 @@ class level03 extends Phaser.Scene {
       
             //make camera follow player
             this.cameras.main.startFollow(this.player);
-
-   
-
-      // this.physics.add.collider(this.player,this.WallLayer);
-      // this.physics.add.collider(this.player,this.FurnitureLayer);
-      // this.physics.add.collider(this.player,this.DecorLayer);
-
-      // Show colliding tiles as different colours 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // this.WallLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.FurnitureLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.DecorLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
+     
   } /////////////////// end of create //////////////////////////////
 
 
@@ -306,24 +271,18 @@ class level03 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(3000);
+    this.cameras.main.shake(1000);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-
-
-    // //disable Jollie
-    console.log("disable body");
-    player.body.setEnable(false);
-    console.log("setVisible false");
-    player.setVisible(false);
 }
 
 collectKey(player, key){
   console.log("Collect Key");
+  key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-  key.disableBody(true, true);
+  
     
 }
 

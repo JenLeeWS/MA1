@@ -259,25 +259,19 @@ class level02 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(3000);
+    this.cameras.main.shake(1000);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-
-
-    // //disable Jollie
-    console.log("disable body");
-    player.body.setEnable(false);
-    console.log("setVisible false");
-    player.setVisible(false);
 }
 
 
 collectKey(player, key){
   console.log("Collect Key");
+  key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-  key.disableBody(true, true);
+ 
   
   
 }

@@ -15,7 +15,7 @@ class level01 extends Phaser.Scene {
 
   create() {
     console.log("*** level01 scene");
-
+    
     var map1 = this.make.tilemap({ key: "map1"});
     
     let artTiles = map1.addTilesetImage("art", "art");
@@ -84,6 +84,7 @@ class level01 extends Phaser.Scene {
      this.heart2 = this.add.image(170, 50, "heart").setScrollFactor(0).setScale(0.4);
      this.heart3 = this.add.image(240, 50, "heart").setScrollFactor(0).setScale(0.4);
      this.heart4 = this.add.image(310, 50, "heart").setScrollFactor(0).setScale(0.4);
+     this.heart5 = this.add.image(380, 50, "heart").setScrollFactor(0).setScale(0.4);
      
        
     // Add time event / movement here
@@ -125,25 +126,7 @@ class level01 extends Phaser.Scene {
       this.physics.add.collider(this.player,this.FurnitureLayer);
       this.physics.add.collider(this.player,this.DecorLayer);
 
-      // Show colliding tiles as different colours 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // this.WallLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
 
-    // this.FurnitureLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.DecorLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
   } /////////////////// end of create //////////////////////////////
 
 
@@ -184,6 +167,29 @@ class level01 extends Phaser.Scene {
     else
     {
         this.player.setVelocity(0);
+    }
+
+    if(window.heart===4){
+      this.heart5.setVisible(true);
+    }else if (window.heart===3){
+      this.heart5.setVisible(true);
+      this.heart4.setVisible(true);
+    }else if (window.heart===2){
+      this.heart5.setVisible(true);
+      this.heart4.setVisible(true);
+      this.heart3.setVisible(true);
+    }else if (window.heart===1){
+      this.heart5.setVisible(true);
+      this.heart4.setVisible(true);
+      this.heart3.setVisible(true);
+      this.heart2.setVisible(true);
+    }
+    else if (window.heart<=0){
+      this.heart5.setVisible(true);
+      this.heart4.setVisible(true);
+      this.heart3.setVisible(true);
+      this.heart2.setVisible(true);
+      this.heart1.setVisible(true);
     }
 
   } /////////////////// end of update //////////////////////////////
@@ -229,30 +235,39 @@ class level01 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(3000);
+    this.cameras.main.shake(1000);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-
-
-    // //disable Jollie
-    console.log("disable body");
-    player.body.setEnable(false);
-    console.log("setVisible false");
-    player.setVisible(false);
-
-    // this.physics.pause();
-    // player.setTint(0xff0000);
-    // gameOver = true;
+    //deduct life
+    window.heart--;
+    console.log("life: ", window.heart);
+    if (window.heart > 5) {
+      window.heart = 5;
+    }
+   if (window.heart == 5) {
+    this.heart5.setVisible(true);
+   }
+   else if (window.heart == 4){
+    this.heart4.setVisible(true);
+   }
+   else if (window.heart == 3){
+    this.heart3.setVisible(true);
+   }
+   else if (window.heart == 2){
+    this.heart2.setVisible(true);
+   }
+   else if (window.heart == 1){
+    this.heart1.setVisible(true);
+   }
 }
 
 collectKey(player, key){
   console.log("Collect Key");
+  key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-  key.disableBody(true, true);
-  
-  
+    
 }
 
     // Function to jump to level02
