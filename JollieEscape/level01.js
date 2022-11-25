@@ -7,9 +7,7 @@ class level01 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map1', 'assets/level01.tmj');
-    //load sound effect
-    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
-    this.load.audio('collectkey','assets/dingcollect.mp3');
+
     }
 
   create() {
@@ -42,9 +40,7 @@ class level01 extends Phaser.Scene {
     this.DecorLayer = map1.createLayer("DecorLayer", tilesArray1, 0,0);
     this.EntryLayer = map1.createLayer("EntryLayer", tilesArray1, 0,0);
     
-    //sound effect
-    this.hitenemySnd = this.sound.add('hitenemy');
-    this.collectkeySnd = this.sound.add('collectkey');
+  
 
     // Add main player here with physics.add.sprite
     var startPoint = map1.findObject("ObjectLayer", (obj) => obj.name === "start");
@@ -69,32 +65,12 @@ class level01 extends Phaser.Scene {
      this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
 
    
-     this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
-     this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
+     this.physics.add.overlap(this.player, [this.antright1, this.antright2], hitAnt, null, this);
 
      //player overlap keys
      this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4], this.collectKey, null, this);
      
-
-     //heart
-     this.heart1 = this.add.image(100, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
-     this.heart2 = this.add.image(170, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
-     this.heart3 = this.add.image(240, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
-    
-     if (window.heart >= 3) {
-      this.heart1.setVisible(true);
-      this.heart2.setVisible(true);
-      this.heart3.setVisible(true);
-     }
-     else if (window.heart == 2){
-      this.heart1.setVisible(true);
-      this.heart2.setVisible(true);
-     }
-     else if (window.heart == 1) {
-      this.heart1.setVisible(true);
-     }
-     
-       
+      
     // Add time event / movement here
     this.timedEvent = this.time.addEvent({
       delay: 1000,
@@ -215,35 +191,13 @@ class level01 extends Phaser.Scene {
     });
   }
 
-  hitAnt (player, Ant) {
-    console.log("Ant overlap with Jollie");
-    //shake the camera
-    console.log("shake screen");
-    this.cameras.main.shake(100);
-    //play sound
-    console.log("play sound");
-    this.hitenemySnd.play();
-    console.log("minus heart");
-    window.heart--;
-    if (window.heart == 2){
-      this.heart3.setVisible(false);
-    }
-    else if (window.heart == 1){
-      this.heart2.setVisible(false);
-    }
-    else if (window.heart == 0){
-      this.heart1.setVisible(false);
-      this.scene.stop('level01');
-      this.scene.start("gameover");
-    }
-}
-
+  
 collectKey(player, key){
   console.log("Collect Key");
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-    
+  updateInventory.call(this);   
 }
 
     // Function to jump to level02
