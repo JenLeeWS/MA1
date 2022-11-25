@@ -75,19 +75,14 @@ class level02 extends Phaser.Scene {
        this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
        this.antright3 = this.physics.add.sprite(1200, 500, "ant3").play("right-Ant").setScale(0.75);
 
+       //Ant overlap player
        this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
        this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
        this.physics.add.overlap(this.player, this.antright3, this.hitAnt, null, this);
   
        //player overlap keys
-       this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key5, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key6, this.collectKey, null, this);
-       this.physics.add.overlap(this.player, this.key7, this.collectKey, null, this);
-    
+       this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4, this.key5, this.key6, this.key7], this.collectKey, null, this);
+      
     // Add time event / movement here
     this.timedEvent = this.time.addEvent({
       delay: 900,
@@ -124,35 +119,17 @@ class level02 extends Phaser.Scene {
 
     // camera follow player
     //this.cameras.main.startFollow(this.player);
-            //set boundary sp camera won't go outside the game world
-            this.cameras.main.setBounds(0,0, map2.widthInPixels, map2.heightInPixels);
+    //set boundary sp camera won't go outside the game world
+    this.cameras.main.setBounds(0,0, map2.widthInPixels, map2.heightInPixels);
       
-            //make camera follow player
-            this.cameras.main.startFollow(this.player);
+    //make camera follow player
+    this.cameras.main.startFollow(this.player);
 
       this.physics.add.collider(this.player,this.WallLayer2);
       this.physics.add.collider(this.player,this.FurnitureLayer2);
       this.physics.add.collider(this.player,this.DecorLayer2);
 
-      // Show colliding tiles as different colours 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // this.WallLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
 
-    // this.FurnitureLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.DecorLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
   } /////////////////// end of create //////////////////////////////
 
 
@@ -259,7 +236,7 @@ class level02 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(1000);
+    this.cameras.main.shake(100);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
@@ -270,10 +247,7 @@ collectKey(player, key){
   console.log("Collect Key");
   key.disableBody(true, true);
   console.log("play sound");
-  this.collectkeySnd.play();
- 
-  
-  
+  this.collectkeySnd.play(); 
 }
 
     // Function to jump to level03

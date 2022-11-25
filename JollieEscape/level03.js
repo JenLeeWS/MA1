@@ -52,10 +52,6 @@ class level03 extends Phaser.Scene {
     window.player = this.player;
 
     //key object
-    // var key1 = map.findObject("ObjectLayer", (obj) => obj.name === "key1");
-    // this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key')
-
-    //key object
     var key1 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key1");
     var key2 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key2");
     var key3 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key3");
@@ -66,14 +62,14 @@ class level03 extends Phaser.Scene {
     var key8 = map3.findObject("ObjectLayer3", (obj) => obj.name === "key8");
 
     //key position
-    this.physics.add.sprite(key1.x, key1.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key2.x, key2.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key3.x, key3.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key4.x, key4.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key5.x, key5.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key6.x, key6.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key7.x, key7.y, 'key').setScale(0.75);
-    this.physics.add.sprite(key8.x, key8.y, 'key').setScale(0.75);
+    this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key').setScale(0.75);
+    this.key2 = this.physics.add.sprite(key2.x, key2.y, 'key').setScale(0.75);
+    this.key3 = this.physics.add.sprite(key3.x, key3.y, 'key').setScale(0.75);
+    this.key4 = this.physics.add.sprite(key4.x, key4.y, 'key').setScale(0.75);
+    this.key5 = this.physics.add.sprite(key5.x, key5.y, 'key').setScale(0.75);
+    this.key6 = this.physics.add.sprite(key6.x, key6.y, 'key').setScale(0.75);
+    this.key7 = this.physics.add.sprite(key7.x, key7.y, 'key').setScale(0.75);
+    this.key8 = this.physics.add.sprite(key8.x, key8.y, 'key').setScale(0.75);
 
     //Ant position
     this.antright1 = this.physics.add.sprite(20, 300, "ant1").play("right-Ant").setScale(0.75);
@@ -81,23 +77,15 @@ class level03 extends Phaser.Scene {
     this.antright3 = this.physics.add.sprite(1000, 450, "ant3").play("right-Ant").setScale(0.75);
     this.antright4 = this.physics.add.sprite(40, 1100, "ant4").play("right-Ant").setScale(0.75);
 
-    //Ant overlap
+    //Ant overlap player
     this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
     this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
     this.physics.add.overlap(this.player, this.antright3, this.hitAnt, null, this);
     this.physics.add.overlap(this.player, this.antright4, this.hitAnt, null, this);
       
     //player overlap keys
-    this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key5, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key6, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key7, this.collectKey, null, this);
-    this.physics.add.overlap(this.player, this.key8, this.collectKey, null, this);
-
-        
+    this.physics.add.overlap(this.player,[this.key1, this.key2, this.key3, this.key4, this.key5, this.key6, this.key7, this.key8], this.collectKey, null, this);
+           
         // Add time event / movement here
         this.timedEvent = this.time.addEvent({
           delay: 900,
@@ -271,7 +259,7 @@ class level03 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(1000);
+    this.cameras.main.shake(100);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
@@ -282,9 +270,9 @@ collectKey(player, key){
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-  
-    
 }
+
+
 
     // Function to jump to level04
     level04(player, tile) {

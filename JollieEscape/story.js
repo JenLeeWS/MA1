@@ -25,6 +25,7 @@ class story extends Phaser.Scene {
         // Add image and detect spacebar keypress
         this.add.image(0,0, 'story').setOrigin(0,0);
         this.add.sprite(350, 1050, "Jollie").setScale(10).play('down-Jollie');
+        this.add.sprite(1700, 250, "Spirit").setScale(5).play('float');
 
         // Check for spacebar or any key here
         var spaceDown = this.input.keyboard.addKey('SPACE');
@@ -36,11 +37,12 @@ class story extends Phaser.Scene {
         }, this);
 
 
-        // Add any text in the main page
+        // Text
         this.add.text(850, 1100, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
-        this.add.text(550, 750, 'Where am I? I do not like it here. I need to escape', {font: '50px Futura PT Medium', fill: '#272e66' });
+        this.add.text(550, 870, 'Where am I? I do not like it here. I need to escape', {font: '50px Futura PT Medium', fill: '#272e66' });
+        this.add.text(550, 260, 'Hi, my name is Sunny. I will help you to escape', {font: '50px Futura PT Medium', fill: '#272e66' });
 
-        // Create all the game animations here
+    
 
     }
 

@@ -18,7 +18,8 @@ let config = {
     },
     backgroundColor: '#000000',
     pixelArt: true,
-    scene: [ preloadScene, main, story, instruction, level01, level02, level03, level04]
+    scene: [ preloadScene, story, instruction, level01, level02, level03, level04, gameover]
 }
 
 var game = new Phaser.Game(config);
+window.heart = 3;

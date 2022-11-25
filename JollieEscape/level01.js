@@ -10,8 +10,7 @@ class level01 extends Phaser.Scene {
     //load sound effect
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
     this.load.audio('collectkey','assets/dingcollect.mp3');
-    this.load.image("heart", "assets/heart.png");
-  }
+    }
 
   create() {
     console.log("*** level01 scene");
@@ -60,10 +59,10 @@ class level01 extends Phaser.Scene {
     var key3 = map1.findObject("ObjectLayer", (obj) => obj.name === "key3");
     var key4 = map1.findObject("ObjectLayer", (obj) => obj.name === "key4");
    
-     this.key1 = this.physics.add.sprite(key1.x, key1.y, "key").setScale(0.75);
-     this.key2 = this.physics.add.sprite(key2.x, key2.y, "key").setScale(0.75);
-     this.key3 = this.physics.add.sprite(key3.x, key3.y, "key").setScale(0.75);
-     this.key4 = this.physics.add.sprite(key4.x, key4.y, "key").setScale(0.75);
+    this.key1 = this.physics.add.sprite(key1.x, key1.y, "key").setScale(0.75);
+    this.key2 = this.physics.add.sprite(key2.x, key2.y, "key").setScale(0.75);
+    this.key3 = this.physics.add.sprite(key3.x, key3.y, "key").setScale(0.75);
+    this.key4 = this.physics.add.sprite(key4.x, key4.y, "key").setScale(0.75);
 
      //Ant position
      this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
@@ -74,17 +73,26 @@ class level01 extends Phaser.Scene {
      this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
 
      //player overlap keys
-     this.physics.add.overlap(this.player, this.key1, this.collectKey, null, this);
-     this.physics.add.overlap(this.player, this.key2, this.collectKey, null, this);
-     this.physics.add.overlap(this.player, this.key3, this.collectKey, null, this);
-     this.physics.add.overlap(this.player, this.key4, this.collectKey, null, this);
+     this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4], this.collectKey, null, this);
+     
 
      //heart
-     this.heart1 = this.add.image(100, 50, "heart").setScrollFactor(0).setScale(0.4);
-     this.heart2 = this.add.image(170, 50, "heart").setScrollFactor(0).setScale(0.4);
-     this.heart3 = this.add.image(240, 50, "heart").setScrollFactor(0).setScale(0.4);
-     this.heart4 = this.add.image(310, 50, "heart").setScrollFactor(0).setScale(0.4);
-     this.heart5 = this.add.image(380, 50, "heart").setScrollFactor(0).setScale(0.4);
+     this.heart1 = this.add.image(100, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
+     this.heart2 = this.add.image(170, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
+     this.heart3 = this.add.image(240, 50, "heart").setScrollFactor(0).setScale(0.4).setVisible(false);
+    
+     if (window.heart >= 3) {
+      this.heart1.setVisible(true);
+      this.heart2.setVisible(true);
+      this.heart3.setVisible(true);
+     }
+     else if (window.heart == 2){
+      this.heart1.setVisible(true);
+      this.heart2.setVisible(true);
+     }
+     else if (window.heart == 1) {
+      this.heart1.setVisible(true);
+     }
      
        
     // Add time event / movement here
@@ -115,8 +123,6 @@ class level01 extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // camera follow player
-    //this.cameras.main.startFollow(this.player);
-    //set boundary sp camera won't go outside the game world
     this.cameras.main.setBounds(0,0, map1.widthInPixels, map1.heightInPixels);
 
     //make camera follow player
@@ -169,29 +175,7 @@ class level01 extends Phaser.Scene {
         this.player.setVelocity(0);
     }
 
-    if(window.heart===4){
-      this.heart5.setVisible(true);
-    }else if (window.heart===3){
-      this.heart5.setVisible(true);
-      this.heart4.setVisible(true);
-    }else if (window.heart===2){
-      this.heart5.setVisible(true);
-      this.heart4.setVisible(true);
-      this.heart3.setVisible(true);
-    }else if (window.heart===1){
-      this.heart5.setVisible(true);
-      this.heart4.setVisible(true);
-      this.heart3.setVisible(true);
-      this.heart2.setVisible(true);
-    }
-    else if (window.heart<=0){
-      this.heart5.setVisible(true);
-      this.heart4.setVisible(true);
-      this.heart3.setVisible(true);
-      this.heart2.setVisible(true);
-      this.heart1.setVisible(true);
-    }
-
+    
   } /////////////////// end of update //////////////////////////////
 
   //Ant moveRightLeft
@@ -235,31 +219,23 @@ class level01 extends Phaser.Scene {
     console.log("Ant overlap with Jollie");
     //shake the camera
     console.log("shake screen");
-    this.cameras.main.shake(1000);
+    this.cameras.main.shake(100);
     //play sound
     console.log("play sound");
     this.hitenemySnd.play();
-    //deduct life
+    console.log("minus heart");
     window.heart--;
-    console.log("life: ", window.heart);
-    if (window.heart > 5) {
-      window.heart = 5;
+    if (window.heart == 2){
+      this.heart3.setVisible(false);
     }
-   if (window.heart == 5) {
-    this.heart5.setVisible(true);
-   }
-   else if (window.heart == 4){
-    this.heart4.setVisible(true);
-   }
-   else if (window.heart == 3){
-    this.heart3.setVisible(true);
-   }
-   else if (window.heart == 2){
-    this.heart2.setVisible(true);
-   }
-   else if (window.heart == 1){
-    this.heart1.setVisible(true);
-   }
+    else if (window.heart == 1){
+      this.heart2.setVisible(false);
+    }
+    else if (window.heart == 0){
+      this.heart1.setVisible(false);
+      this.scene.stop('level01');
+      this.scene.start("gameover");
+    }
 }
 
 collectKey(player, key){

@@ -31,24 +31,12 @@ class level04 extends Phaser.Scene {
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
     this.player.setScale(1.3);
     this.player.setCollideWorldBounds(true);
+    window.player = this.player;
 
-    //key object
-    // var key1 = map.findObject("ObjectLayer", (obj) => obj.name === "key1");
-    // this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key')
-    
-    // Add time event / movement here
-    // this.timedEvent = this.time.addEvent({
-    //   delay: 1000,
-    //   callback: this.delayOneSec,
-    //   callbackScope: this,
-    //   loop: false,
-    // });
+    var Sunny = map4.findObject("ObjectLayer4", (obj) => obj.name === "Sunny");
 
-    // get the tileIndex number in json, +1
-    //mapLayer.setTileIndexCallback(11, this.room1, this);
-
-    // Add custom properties in Tiled called "mouintain" as bool
-    
+    this.spirit = this.physics.add.sprite(Sunny.x, Sunny.y).setScale(3).play("float");
+   
     this.FurnitureLayer4.setCollisionByExclusion(-1, true);
     this.DecorLayer4.setCollisionByExclusion(-1, true);
 
@@ -61,37 +49,16 @@ class level04 extends Phaser.Scene {
 
     // camera follow player
     //this.cameras.main.startFollow(this.player);
-            //set boundary sp camera won't go outside the game world
-            this.cameras.main.setBounds(0,0, map4.widthInPixels, map4.heightInPixels);
+    //set boundary sp camera won't go outside the game world
+    this.cameras.main.setBounds(0,0, map4.widthInPixels, map4.heightInPixels);
       
-            //make camera follow player
-            this.cameras.main.startFollow(this.player);
+    //make camera follow player
+    this.cameras.main.startFollow(this.player);
+
+      // Text
+      this.add.text(250, 570, 'Hooray! You have successfully escape', {font: '70px Futura PT Medium', fill: '#272e66' });
 
     
-
-      // this.physics.add.collider(this.player,this.WallLayer);
-      // this.physics.add.collider(this.player,this.FurnitureLayer);
-      // this.physics.add.collider(this.player,this.DecorLayer);
-
-      // Show colliding tiles as different colours 
-    // const debugGraphics = this.add.graphics().setAlpha(0.75);
-    // this.WallLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.FurnitureLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
-
-    // this.DecorLayer.renderDebug(debugGraphics, {
-    // tileColor: null, // Color of non-colliding tiles
-    // collidingTileColor: new Phaser.Display.Color(243, 134, 48, 255), // Color of colliding tiles
-    // faceColor: new Phaser.Display.Color(40, 39, 37, 255) // Color of colliding face edges
-    // });
   } /////////////////// end of create //////////////////////////////
 
 
@@ -139,9 +106,4 @@ class level04 extends Phaser.Scene {
 
   } /////////////////// end of update //////////////////////////////
 
-    // // Function to jump to level03
-    // level04(player, tile) {
-    //   console.log("level04 function");
-    //   this.scene.start("level04");
-    // }
 } //////////// end of class world ////////////////////////

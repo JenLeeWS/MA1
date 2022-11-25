@@ -10,6 +10,7 @@ class preloadScene extends Phaser.Scene {
         this.load.spritesheet('Ant', 'assets/ant.png', {frameWidth: 64, frameHeight: 64});
         //Jollie spritesheet 64 x 64 12 frames per animation
        this.load.spritesheet('Jollie', 'assets/Jollie.png', {frameWidth: 64, frameHeight: 64});
+       this.load.spritesheet('Spirit', 'assets/spirit.png', {frameWidth: 64, frameHeight: 64});
 
        this.load.image("art", "assets/art.png");
        this.load.image("basement", "assets/basement.png");
@@ -28,8 +29,8 @@ class preloadScene extends Phaser.Scene {
        this.load.image("plant", "assets/plant.png");
        this.load.image("forest", "assets/forest.png");
        this.load.image("intro", "assets/intropage.jpg");
-      
-       
+       this.load.image("heart", "assets/heart.png");
+             
        // Preload any sound and music here
        this.load.audio('bgMusic', 'assets/russianfun.mp3');
     }
@@ -56,6 +57,7 @@ class preloadScene extends Phaser.Scene {
         var key2 = this.input.keyboard.addKey(50);
         var key3 = this.input.keyboard.addKey(51);
         var key4 = this.input.keyboard.addKey(52);
+        var keyT = this.input.keyboard.addKey(84);
 
         key1.on('down', function(){
             this.scene.stop("preloadScene");
@@ -77,6 +79,11 @@ class preloadScene extends Phaser.Scene {
             this.scene.start("level04");
         }, this );
 
+        keyT.on('down', function(){
+            this.scene.stop("preloadScene");
+            this.scene.start("gameover");
+        }, this );
+
         // this.input.on('pointerdown', function (pointer){
         //     this.scene.start("level01");
         // }, this);
@@ -91,28 +98,28 @@ class preloadScene extends Phaser.Scene {
         key:'right-Jollie',
         frames:this.anims.generateFrameNumbers('Jollie',
         { start:0, end:2 }),
-        frameRate:200,
+        frameRate:10,
         repeat:-1});
         
         this.anims.create({
         key:'up-Jollie',
         frames:this.anims.generateFrameNumbers('Jollie',
         { start:3, end:5 }),
-        frameRate:200,
+        frameRate:10,
         repeat:-1});
         
         this.anims.create({
         key:'down-Jollie',
         frames:this.anims.generateFrameNumbers('Jollie',
         { start:6, end:8 }),
-        frameRate:200,
+        frameRate:10,
         repeat:-1});
         
         this.anims.create({
         key:'left-Jollie',
         frames:this.anims.generateFrameNumbers('Jollie',
         { start:9, end:11 }),
-        frameRate:200,
+        frameRate:10,
         repeat:-1});
   
         //Ant anims create
@@ -120,8 +127,16 @@ class preloadScene extends Phaser.Scene {
         key:'right-Ant',
         frames:this.anims.generateFrameNumbers('Ant',
         { start:0, end:2 }),
-        frameRate:200,
+        frameRate:10,
         repeat:-1});
+
+        //Spirit anims create
+        this.anims.create({
+          key:'float',
+          frames: this.anims.generateFrameNumbers('Spirit',
+          {start:0, end:2}),
+          frameRate: 1.5,
+          repeat:-1});
        
     } //end of create
 
