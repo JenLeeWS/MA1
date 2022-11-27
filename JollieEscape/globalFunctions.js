@@ -23,13 +23,13 @@ function updateInventory() {
   ///////////////////////////////////////////////////////
   function hitAnt(player,Ant) {
       console.log("*** Ant overlap Jollie");
-  
-      this.hitenemySnd.play();
-  
+     
       // Shake screen
      this.cameras.main.shake(100);
+
+     this.hitenemySnd.play();
   
-      window.heart--
+      window.heart--;
       Ant.disableBody(true, true);
       //this.updateInventory()
       updateInventory.call(this)

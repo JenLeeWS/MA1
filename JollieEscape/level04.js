@@ -8,12 +8,16 @@ class level04 extends Phaser.Scene {
 
   preload() {
        this.load.tilemapTiledJSON('map4', 'assets/level04.tmj');
+       this.load.audio('win', 'assets/win.mp3');
   }
 
   create() {
     console.log("*** level04 scene");
 
     var map4 = this.make.tilemap({ key: "map4"});
+    
+    this.winSnd = this.sound.add('win');
+    this.winSnd.play();
 
     let kitchenTiles = map4.addTilesetImage("kitchen", "kitchen");
     let museumTiles = map4.addTilesetImage("museum", "museum");
@@ -55,8 +59,17 @@ class level04 extends Phaser.Scene {
     //make camera follow player
     this.cameras.main.startFollow(this.player);
 
-      // Text
-      this.add.text(250, 570, 'Hooray! You have successfully escape', {font: '70px Futura PT Medium', fill: '#272e66' });
+    // Text
+    this.add.text(250, 570, 'Hooray! You have successfully escape', {font: '70px Futura PT Medium', fill: '#272e66' });
+    this.add.text(500, 670, 'Press spacebar to restart', {font: '40px Futura PT Medium', fill: '#272e66'});
+
+   // Check for spacebar or any key here
+   var spaceDown = this.input.keyboard.addKey('SPACE');
+
+   spaceDown.on('down', function(){
+        console.log('Back to Main Menu');
+        this.scene.start("preloadScene");
+    }, this );
 
     
   } /////////////////// end of create //////////////////////////////

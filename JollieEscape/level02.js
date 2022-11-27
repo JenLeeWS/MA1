@@ -9,8 +9,11 @@ class level02 extends Phaser.Scene {
   preload() {
     this.load.tilemapTiledJSON('map2', 'assets/level02.tmj');
     //load sound effect
-    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+    this.load.image("key", "assets/key.png");
+    this.load.image("heart", "assets/heart.png");
     this.load.audio('collectkey','assets/dingcollect.mp3');
+    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+    this.load.audio('loselife','assets/loselife.mp3');
   }
 
   create() {
@@ -19,8 +22,9 @@ class level02 extends Phaser.Scene {
     var map2 = this.make.tilemap({ key: "map2"});
 
     //sound effect
-    this.hitenemySnd = this.sound.add('hitenemy');
     this.collectkeySnd = this.sound.add('collectkey');
+    this.hitenemySnd = this.sound.add('hitenemy');
+    this.loselifeSnd = this.sound.add('loselife');
 
     let artTiles = map2.addTilesetImage("art", "art");
     let basementTiles = map2.addTilesetImage("basement", "basement");
@@ -62,13 +66,13 @@ class level02 extends Phaser.Scene {
       var key6 = map2.findObject("ObjectLayer2", (obj) => obj.name === "key6");
       var key7 = map2.findObject("ObjectLayer2", (obj) => obj.name === "key7");
      
-       this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key').setScale(0.75);
-       this.key2 = this.physics.add.sprite(key2.x, key2.y, 'key').setScale(0.75);
-       this.key3 = this.physics.add.sprite(key3.x, key3.y, 'key').setScale(0.75);
-       this.key4 = this.physics.add.sprite(key4.x, key4.y, 'key').setScale(0.75);
-       this.key5 = this.physics.add.sprite(key5.x, key5.y, 'key').setScale(0.75);
-       this.key6 = this.physics.add.sprite(key6.x, key6.y, 'key').setScale(0.75);
-       this.key7 = this.physics.add.sprite(key7.x, key7.y, 'key').setScale(0.75);
+       this.key1 = this.physics.add.sprite(key1.x, key1.y, 'key').setScale(1);
+       this.key2 = this.physics.add.sprite(key2.x, key2.y, 'key').setScale(1);
+       this.key3 = this.physics.add.sprite(key3.x, key3.y, 'key').setScale(1);
+       this.key4 = this.physics.add.sprite(key4.x, key4.y, 'key').setScale(1);
+       this.key5 = this.physics.add.sprite(key5.x, key5.y, 'key').setScale(1);
+       this.key6 = this.physics.add.sprite(key6.x, key6.y, 'key').setScale(1);
+       this.key7 = this.physics.add.sprite(key7.x, key7.y, 'key').setScale(1);
 
        //Ant position
        this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
@@ -76,9 +80,7 @@ class level02 extends Phaser.Scene {
        this.antright3 = this.physics.add.sprite(1200, 500, "ant3").play("right-Ant").setScale(0.75);
 
        //Ant overlap player
-       this.physics.add.overlap(this.player, this.antright1, this.hitAnt, null, this);
-       this.physics.add.overlap(this.player, this.antright2, this.hitAnt, null, this);
-       this.physics.add.overlap(this.player, this.antright3, this.hitAnt, null, this);
+       this.physics.add.overlap(this.player, [this.antright1, this.antright2, this.antright3], hitAnt, null, this);
   
        //player overlap keys
        this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4, this.key5, this.key6, this.key7], this.collectKey, null, this);
@@ -231,17 +233,6 @@ class level02 extends Phaser.Scene {
       ],
     });
   }
-
-  hitAnt (player, Ant) {
-    console.log("Ant overlap with Jollie");
-    //shake the camera
-    console.log("shake screen");
-    this.cameras.main.shake(100);
-    //play sound
-    console.log("play sound");
-    this.hitenemySnd.play();
-}
-
 
 collectKey(player, key){
   console.log("Collect Key");

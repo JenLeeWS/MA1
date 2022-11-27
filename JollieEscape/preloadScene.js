@@ -31,21 +31,20 @@ class preloadScene extends Phaser.Scene {
        
              
        // Preload any sound and music here
-       this.load.audio('bgMusic', 'assets/russianfun.mp3');
+       this.load.audio('bgMusic', 'assets/clown.mp3');
     }
  
    create () {
 
         this.add.image(0,0, 'intro').setOrigin(0,0);
-        this.add.sprite(1750, 1050, "Jollie").setScale(5);
-                
+                        
         this.add.text(850,1120, 'Welcome to escape game', {font: '30px Futura PT Medium', fill: '#272e66' });
         this.add.text(850, 1160, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
 
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
         //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
-        this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.06);
+        this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.1);
         this.bgMusic.play();
 
         //this.music.play()
@@ -136,6 +135,8 @@ class preloadScene extends Phaser.Scene {
           {start:0, end:2}),
           frameRate: 1.5,
           repeat:-1});
+
+          this.add.sprite(1760, 1050, "Jollie").play('right-Jollie').setScale(5.5);
        
     } //end of create
 

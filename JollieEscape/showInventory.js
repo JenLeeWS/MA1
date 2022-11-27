@@ -12,7 +12,6 @@ class showInventory extends Phaser.Scene {
     }
 
     preload(){
-        
     }
  
    create () {
@@ -21,7 +20,7 @@ class showInventory extends Phaser.Scene {
        this.heart1 = this.add.image (100,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.75);
        this.heart2 = this.add.image (170,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.75);
        this.heart3 = this.add.image (240,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.75);
-      
+
         // Recv an event, call the method
         this.events.on('inventory', this.updateScreen, this)
     } //end of create

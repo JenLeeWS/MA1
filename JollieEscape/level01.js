@@ -7,12 +7,20 @@ class level01 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map1', 'assets/level01.tmj');
-
+    this.load.image("key", "assets/key.png");
+    this.load.image("heart", "assets/heart.png");
+    this.load.audio('collectkey','assets/dingcollect.mp3');
+    this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
+    this.load.audio('loselife','assets/loselife.mp3');
     }
 
   create() {
     console.log("*** level01 scene");
-    
+
+    this.collectkeySnd = this.sound.add('collectkey');
+    this.hitenemySnd = this.sound.add('hitenemy');
+    this.loselifeSnd = this.sound.add('loselife');
+     
     var map1 = this.make.tilemap({ key: "map1"});
     
     let artTiles = map1.addTilesetImage("art", "art");
@@ -39,9 +47,8 @@ class level01 extends Phaser.Scene {
     this.FurnitureLayer = map1.createLayer("FurnitureLayer", tilesArray1, 0,0);
     this.DecorLayer = map1.createLayer("DecorLayer", tilesArray1, 0,0);
     this.EntryLayer = map1.createLayer("EntryLayer", tilesArray1, 0,0);
-    
-  
 
+ 
     // Add main player here with physics.add.sprite
     var startPoint = map1.findObject("ObjectLayer", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
@@ -55,10 +62,10 @@ class level01 extends Phaser.Scene {
     var key3 = map1.findObject("ObjectLayer", (obj) => obj.name === "key3");
     var key4 = map1.findObject("ObjectLayer", (obj) => obj.name === "key4");
    
-    this.key1 = this.physics.add.sprite(key1.x, key1.y, "key").setScale(0.75);
-    this.key2 = this.physics.add.sprite(key2.x, key2.y, "key").setScale(0.75);
-    this.key3 = this.physics.add.sprite(key3.x, key3.y, "key").setScale(0.75);
-    this.key4 = this.physics.add.sprite(key4.x, key4.y, "key").setScale(0.75);
+    this.key1 = this.physics.add.sprite(key1.x, key1.y, "key").setScale(1);
+    this.key2 = this.physics.add.sprite(key2.x, key2.y, "key").setScale(1);
+    this.key3 = this.physics.add.sprite(key3.x, key3.y, "key").setScale(1);
+    this.key4 = this.physics.add.sprite(key4.x, key4.y, "key").setScale(1);
 
      //Ant position
      this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
@@ -197,8 +204,7 @@ collectKey(player, key){
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
-  updateInventory.call(this);   
-}
+ }
 
     // Function to jump to level02
     level02(player, tile) {
