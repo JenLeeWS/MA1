@@ -19,9 +19,6 @@ class level02 extends Phaser.Scene {
   create() {
     console.log("*** level02 scene");
 
-    // start another scene in parallel
-    this.scene.launch("showInventory");
-
     // Call to update inventory
     this.time.addEvent({
       delay: 500,
@@ -142,6 +139,10 @@ class level02 extends Phaser.Scene {
       this.physics.add.collider(this.player,this.FurnitureLayer2);
       this.physics.add.collider(this.player,this.DecorLayer2);
 
+    //   console.log("showInventory");
+
+    // // start another scene in parallel
+    // this.scene.start("showInventory");
 
   } /////////////////// end of create //////////////////////////////
 

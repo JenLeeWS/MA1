@@ -8,7 +8,6 @@ class level01 extends Phaser.Scene {
   preload() {
     this.load.tilemapTiledJSON('map1', 'assets/level01.tmj');
     this.load.image("key", "assets/key.png");
-    this.load.image("heart", "assets/heart.png");
     this.load.audio('collectkey','assets/dingcollect.mp3');
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
     this.load.audio('loselife','assets/loselife.mp3');
@@ -16,10 +15,7 @@ class level01 extends Phaser.Scene {
 
   create() {
     console.log("*** level01 scene");
-
-    // start another scene in parallel
-    this.scene.launch("showInventory");
-
+    
     // Call to update inventory
     this.time.addEvent({
       delay: 500,
@@ -125,6 +121,11 @@ class level01 extends Phaser.Scene {
       this.physics.add.collider(this.player,this.WallLayer);
       this.physics.add.collider(this.player,this.FurnitureLayer);
       this.physics.add.collider(this.player,this.DecorLayer);
+
+    console.log("showInventory");
+
+    // // start another scene in parallel
+    // this.scene.start("showInventory");
 
 
   } /////////////////// end of create //////////////////////////////

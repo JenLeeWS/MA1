@@ -5,8 +5,9 @@ class gameScene extends Phaser.Scene {
         super({ key: 'gameScene' });
     }
 
+ 
     preload(){
-        this.load.image("heart", "assets/heart.png");
+        this.load.image('heart', 'assets/heart.png');
               
         //load sound effect
         this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
@@ -15,6 +16,8 @@ class gameScene extends Phaser.Scene {
     }
  
    create () {
+
+    console.log("showInventory");
 
     // Call to update inventory
     this.time.addEvent({
@@ -28,11 +31,11 @@ class gameScene extends Phaser.Scene {
     this.hitenemySnd = this.sound.add('hitenemy');
     this.loselifeSnd = this.sound.add('loselife');
        
-     // start another scene in parallel
-    this.scene.launch("showInventory");
-
     //Ant overlap player
     this.physics.add.overlap(this.player, [this.antright1, this.antright2, this.antright3, this.antright4], hitAnt, null, this);
+
+    // start another scene in parallel
+    this.scene.launch("showInventory");
      
 } //end of create
    

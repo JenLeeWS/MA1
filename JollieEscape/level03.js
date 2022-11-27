@@ -19,9 +19,6 @@ class level03 extends Phaser.Scene {
   create() {
     console.log("*** level03 scene");
 
-    // start another scene in parallel
-    this.scene.launch("showInventory");
-
     // Call to update inventory
     this.time.addEvent({
       delay: 500,
@@ -151,6 +148,11 @@ class level03 extends Phaser.Scene {
       
             //make camera follow player
             this.cameras.main.startFollow(this.player);
+
+      console.log("showInventory");
+
+    // // start another scene in parallel
+    // this.scene.start("showInventory");
      
   } /////////////////// end of create //////////////////////////////
 
