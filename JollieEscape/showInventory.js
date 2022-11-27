@@ -12,17 +12,24 @@ class showInventory extends Phaser.Scene {
     }
 
     preload(){
+        //Load heart image
+        this.load.image('heart', 'assets/heart.png');
     }
  
    create () {
 
+        //Place hearts at the top screen
+        console.log("***showInventory");
+        this.scene.bringToTop("showInventory");
+
        // Setup heart but visible to false
-       this.heartimg1 = this.add.image (100,50,'heart').setScrollFactor(0).setVisible(false);
-       this.heartimg2 = this.add.image (170,50,'heart').setScrollFactor(0).setVisible(false);
-       this.heartimg3 = this.add.image (240,50,'heart').setScrollFactor(0).setVisible(false);
+       this.heartimg1 = this.add.image (100,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+       this.heartimg2 = this.add.image (170,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+       this.heartimg3 = this.add.image (240,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
 
         // Recv an event, call the method
         this.events.on('inventory', this.updateScreen, this)
+        
     } //end of create
 
     updateScreen(data){
@@ -61,3 +68,4 @@ class showInventory extends Phaser.Scene {
     }
 
 } // end of class
+

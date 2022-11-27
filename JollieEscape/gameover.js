@@ -9,14 +9,11 @@ class gameover extends Phaser.Scene {
     }
 
     preload() {
-
-        // Preload all the assets here
-
-        // Preload any images here
+        //load image
         this.load.image("gameover", "assets/gameover.jpg");
+        //load sound effect
         this.load.audio('loselife','assets/loselife.mp3');
-        // this.load.audio('ping', 'assets/ping.mp3');
-        // this.load.audio('bgMusic', 'assets/bgMusic.mp3');
+
     }
 
     create() {
@@ -26,7 +23,10 @@ class gameover extends Phaser.Scene {
         // Add image and detect spacebar keypress
         this.add.image(0,0, 'gameover').setOrigin(0,0);
         this.add.sprite(920, 400, "Spirit").setScale(8).play('float');
-        this.loselifeSnd = this.sound.add('loselife');
+        this.loselifeSnd = this.sound.add('loselife').setVolume(0.2);
+        
+        //reload 3 hearts 
+        window.heart = 3;
 
         // 'T' key
         var keyT = this.input.keyboard.addKey(84);
@@ -39,4 +39,4 @@ class gameover extends Phaser.Scene {
     }
 
 
-}
+} 

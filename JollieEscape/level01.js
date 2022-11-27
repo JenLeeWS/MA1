@@ -7,7 +7,10 @@ class level01 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map1', 'assets/level01.tmj');
+    //load images
     this.load.image("key", "assets/key.png");
+    this.load.image('heart', 'assets/heart.png');
+    //load sound effect
     this.load.audio('collectkey','assets/dingcollect.mp3');
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
     this.load.audio('loselife','assets/loselife.mp3');
@@ -15,7 +18,7 @@ class level01 extends Phaser.Scene {
 
   create() {
     console.log("*** level01 scene");
-    
+
     // Call to update inventory
     this.time.addEvent({
       delay: 500,
@@ -24,12 +27,19 @@ class level01 extends Phaser.Scene {
       loop: false,
       });
 
+    //Add sound effect
     this.collectkeySnd = this.sound.add('collectkey');
     this.hitenemySnd = this.sound.add('hitenemy');
     this.loselifeSnd = this.sound.add('loselife');
      
     var map1 = this.make.tilemap({ key: "map1"});
+
+    // Setup heart but visible to false
+    this.heartimg1 = this.add.image (100,50,'heart').setScrollFactor(0).setVisible(false);
+    this.heartimg2 = this.add.image (170,50,'heart').setScrollFactor(0).setVisible(false);
+    this.heartimg3 = this.add.image (240,50,'heart').setScrollFactor(0).setVisible(false);
     
+    //Tiles
     let artTiles = map1.addTilesetImage("art", "art");
     let basementTiles = map1.addTilesetImage("basement", "basement");
     let bathroomTiles = map1.addTilesetImage("bathroom", "bathroom");
@@ -48,6 +58,7 @@ class level01 extends Phaser.Scene {
     let tilesArray1 = [artTiles, basementTiles, bathroomTiles, bedroomTiles, genericTiles, tvTiles,
       hospitalTiles, kitchenTiles, libraryTiles, livingroomTiles, museumTiles, musicTiles, roombuilderTiles];
 
+    //Layers
     this.GroundLayer = map1.createLayer("GroundLayer", tilesArray1, 0,0);
     this.WallLayer = map1.createLayer("WallLayer", tilesArray1, 0,0);
     this.FloorLayer = map1.createLayer("FloorLayer", tilesArray1, 0,0);
@@ -69,20 +80,21 @@ class level01 extends Phaser.Scene {
     var key3 = map1.findObject("ObjectLayer", (obj) => obj.name === "key3");
     var key4 = map1.findObject("ObjectLayer", (obj) => obj.name === "key4");
    
+    //key position
     this.key1 = this.physics.add.sprite(key1.x, key1.y, "key").setScale(1);
     this.key2 = this.physics.add.sprite(key2.x, key2.y, "key").setScale(1);
     this.key3 = this.physics.add.sprite(key3.x, key3.y, "key").setScale(1);
     this.key4 = this.physics.add.sprite(key4.x, key4.y, "key").setScale(1);
 
-     //Ant position
-     this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
-     this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
+    //Ant position
+    this.antright1 = this.physics.add.sprite(150, 175, "ant1").play("right-Ant").setScale(0.75);
+    this.antright2 = this.physics.add.sprite(650, 1100, "ant2").play("right-Ant").setScale(0.75);
 
-   
-     this.physics.add.overlap(this.player, [this.antright1, this.antright2], hitAnt, null, this);
+    //player overlap ant
+    this.physics.add.overlap(this.player, [this.antright1, this.antright2], hitAnt, null, this);
 
-     //player overlap keys
-     this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4], this.collectKey, null, this);
+    //player overlap keys
+    this.physics.add.overlap(this.player, [this.key1, this.key2, this.key3, this.key4], this.collectKey, null, this);
      
       
     // Add time event / movement here
@@ -118,19 +130,20 @@ class level01 extends Phaser.Scene {
     //make camera follow player
     this.cameras.main.startFollow(this.player);
 
-      this.physics.add.collider(this.player,this.WallLayer);
-      this.physics.add.collider(this.player,this.FurnitureLayer);
-      this.physics.add.collider(this.player,this.DecorLayer);
+    //Collision
+    this.physics.add.collider(this.player,this.WallLayer);
+    this.physics.add.collider(this.player,this.FurnitureLayer);
+    this.physics.add.collider(this.player,this.DecorLayer);
 
     console.log("showInventory");
 
-    // // start another scene in parallel
-    // this.scene.start("showInventory");
+    // start another scene in parallel
+    this.scene.launch("showInventory");
 
 
   } /////////////////// end of create //////////////////////////////
 
-
+  //'Player anims
   update() {
 
     if (this.player.x > 1855 && this.player.y && this.player.y < 678){
@@ -141,28 +154,27 @@ class level01 extends Phaser.Scene {
     else {
 
         this.player.setVelocity(0);
-        this.player.anims.stop();
 
     }
 
     if (this.cursors.left.isDown)
     {
-        this.player.setVelocityX(-160);
+        this.player.setVelocityX(-500);
         this.player.anims.play('left-Jollie', true);
     }
     else if (this.cursors.right.isDown)
     {
-        this.player.setVelocityX(160);
+        this.player.setVelocityX(500);
         this.player.anims.play('right-Jollie', true);
     }
     else if (this.cursors.up.isDown)
     {
-        this.player.setVelocityY(-160);
+        this.player.setVelocityY(-500);
         this.player.anims.play('up-Jollie', true);
     }
     else if (this.cursors.down.isDown)
     {
-        this.player.setVelocityY(160);
+        this.player.setVelocityY(500);
         this.player.anims.play('down-Jollie', true);
     }
     else
@@ -210,7 +222,7 @@ class level01 extends Phaser.Scene {
     });
   }
 
-  
+ //Collect key function 
 collectKey(player, key){
   console.log("Collect Key");
   key.disableBody(true, true);
@@ -225,3 +237,4 @@ collectKey(player, key){
     }
 
 } //////////// end of class world ////////////////////////
+

@@ -28,6 +28,7 @@ class preloadScene extends Phaser.Scene {
        this.load.image("plant", "assets/plant.png");
        this.load.image("forest", "assets/forest.png");
        this.load.image("intro", "assets/intropage.jpg");
+       this.load.image('heart', 'assets/heart.png');
        
              
        // Preload any sound and music here

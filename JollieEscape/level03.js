@@ -8,9 +8,10 @@ class level03 extends Phaser.Scene {
 
   preload() {
     this.load.tilemapTiledJSON('map3', 'assets/level03.tmj');
-    //load sound effect
+    //load image
     this.load.image("key", "assets/key.png");
     this.load.image("heart", "assets/heart.png");
+     //load sound effect
     this.load.audio('collectkey','assets/dingcollect.mp3');
     this.load.audio('hitenemy', 'assets/pophitenemy.mp3');
     this.load.audio('loselife','assets/loselife.mp3');
@@ -34,7 +35,7 @@ class level03 extends Phaser.Scene {
     this.hitenemySnd = this.sound.add('hitenemy');
     this.loselifeSnd = this.sound.add('loselife');
     
-    
+    //Tiles
     let artTiles = map3.addTilesetImage("art", "art");
     let basementTiles = map3.addTilesetImage("basement", "basement");
     let bathroomTiles = map3.addTilesetImage("bathroom", "bathroom");
@@ -52,16 +53,18 @@ class level03 extends Phaser.Scene {
     let tilesArray3 = [artTiles, basementTiles, bathroomTiles, bedroomTiles, genericTiles, tvTiles,
       hospitalTiles, kitchenTiles, libraryTiles, livingroomTiles, museumTiles, musicTiles, roombuilderTiles];
 
+    //Layers
     this.GroundLayer3 = map3.createLayer("GroundLayer3", tilesArray3, 0,0);
     this.WallLayer3 = map3.createLayer("WallLayer3", tilesArray3, 0,0);
     this.FloorLayer3 = map3.createLayer("FloorLayer3", tilesArray3, 0,0);
     this.FurnitureLayer3 = map3.createLayer("FurnitureLayer3", tilesArray3, 0,0);
     this.DecorLayer3 = map3.createLayer("DecorLayer3", tilesArray3, 0,0);
 
-    //sound effect
+    //add sound effect
     this.hitenemySnd = this.sound.add('hitenemy');
     this.collectkeySnd = this.sound.add('collectkey');
      
+    //Player start point
     var startPoint = map3.findObject("ObjectLayer3", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
     this.player.setScale(1.3);
@@ -94,40 +97,40 @@ class level03 extends Phaser.Scene {
     this.antright3 = this.physics.add.sprite(1000, 450, "ant3").play("right-Ant").setScale(0.75);
     this.antright4 = this.physics.add.sprite(40, 1100, "ant4").play("right-Ant").setScale(0.75);
 
-  //Ant overlap player
-  this.physics.add.overlap(this.player, [this.antright1, this.antright2, this.antright3, this.antright4], hitAnt, null, this);
-      
+    //Ant overlap player
+    this.physics.add.overlap(this.player, [this.antright1, this.antright2, this.antright3, this.antright4], hitAnt, null, this);
+        
     //player overlap keys
     this.physics.add.overlap(this.player,[this.key1, this.key2, this.key3, this.key4, this.key5, this.key6, this.key7, this.key8], this.collectKey, null, this);
            
-        // Add time event / movement here
-        this.timedEvent = this.time.addEvent({
-          delay: 900,
-          callback: this.moveRightLeft1,
-          callbackScope: this,
-          loop: false,
-        });
+    // Add time event / movement here for Ant
+    this.timedEvent = this.time.addEvent({
+      delay: 900,
+      callback: this.moveRightLeft1,
+      callbackScope: this,
+      loop: false,
+    });
+
+    this.timedEvent = this.time.addEvent({
+      delay: 900,
+      callback: this.moveRightLeft2,
+      callbackScope: this,
+      loop: false,
+    });
+
+    this.timedEvent = this.time.addEvent({
+      delay: 900,
+      callback: this.moveRightLeft3,
+      callbackScope: this,
+      loop: false,
+    });
     
-        this.timedEvent = this.time.addEvent({
-          delay: 900,
-          callback: this.moveRightLeft2,
-          callbackScope: this,
-          loop: false,
-        });
-    
-        this.timedEvent = this.time.addEvent({
-          delay: 900,
-          callback: this.moveRightLeft3,
-          callbackScope: this,
-          loop: false,
-        });
-        
-        this.timedEvent = this.time.addEvent({
-          delay: 900,
-          callback: this.moveRightLeft4,
-          callbackScope: this,
-          loop: false,
-        });
+    this.timedEvent = this.time.addEvent({
+      delay: 900,
+      callback: this.moveRightLeft4,
+      callbackScope: this,
+      loop: false,
+    });
 
     // What will collider witg what layers
     this.WallLayer3.setCollisionByExclusion(-1, true);
@@ -142,22 +145,20 @@ class level03 extends Phaser.Scene {
     this.cursors = this.input.keyboard.createCursorKeys();
 
     // camera follow player
-    //this.cameras.main.startFollow(this.player);
-            //set boundary sp camera won't go outside the game world
-            this.cameras.main.setBounds(0,0, map3.widthInPixels, map3.heightInPixels);
+    this.cameras.main.setBounds(0,0, map3.widthInPixels, map3.heightInPixels);
       
-            //make camera follow player
-            this.cameras.main.startFollow(this.player);
+    //make camera follow player
+    this.cameras.main.startFollow(this.player);
 
-      console.log("showInventory");
+    console.log("showInventory");
 
-    // // start another scene in parallel
-    // this.scene.start("showInventory");
+    // start another scene in parallel
+    this.scene.launch("showInventory");
      
   } /////////////////// end of create //////////////////////////////
 
 
-
+  //PLayer anims
   update() {
 
     if (this.player.x > 1855 && this.player.y && this.player.y < 678){
@@ -168,30 +169,29 @@ class level03 extends Phaser.Scene {
     else {
 
         this.player.setVelocity(0);
-        this.player.anims.stop();
-
+      
     }
 
     if (this.cursors.left.isDown)
     {
         console.log("left")
-        this.player.setVelocityX(-160);
+        this.player.setVelocityX(-500);
         this.player.anims.play('left-Jollie', true);
     }
     else if (this.cursors.right.isDown)
     {
         console.log("right")
-        this.player.setVelocityX(160);
+        this.player.setVelocityX(500);
         this.player.anims.play('right-Jollie', true);
     }
     else if (this.cursors.up.isDown)
     {
-        this.player.setVelocityY(-160);
+        this.player.setVelocityY(-500);
         this.player.anims.play('up-Jollie', true);
     }
     else if (this.cursors.down.isDown)
     {
-        this.player.setVelocityY(160);
+        this.player.setVelocityY(500);
         this.player.anims.play('down-Jollie', true);
     }
     else
@@ -274,14 +274,13 @@ class level03 extends Phaser.Scene {
     });
   }
 
+  //Collect Key function
   collectKey(player, key){
   console.log("Collect Key");
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
 }
-
-
 
     // Function to jump to level04
     level04(player, tile) {
