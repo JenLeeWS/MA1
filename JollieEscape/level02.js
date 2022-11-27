@@ -19,6 +19,17 @@ class level02 extends Phaser.Scene {
   create() {
     console.log("*** level02 scene");
 
+    // start another scene in parallel
+    this.scene.launch("showInventory");
+
+    // Call to update inventory
+    this.time.addEvent({
+      delay: 500,
+      callback: updateInventory,
+      callbackScope: this,
+      loop: false,
+      });
+
     var map2 = this.make.tilemap({ key: "map2"});
 
     //sound effect
