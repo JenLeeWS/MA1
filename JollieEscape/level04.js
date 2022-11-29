@@ -80,6 +80,10 @@ class level04 extends Phaser.Scene {
         this.scene.start("preloadScene");
     }, this );
 
+    console.log("showInventory");
+
+    // start another scene in parallel
+    this.scene.stop("showInventory");
     
   } /////////////////// end of create //////////////////////////////
 
