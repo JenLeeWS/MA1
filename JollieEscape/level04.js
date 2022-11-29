@@ -64,6 +64,10 @@ class level04 extends Phaser.Scene {
     //make camera follow player
     this.cameras.main.startFollow(this.player);
 
+    //Collision
+    this.physics.add.collider(this.player,this.FurnitureLayer4);
+    this.physics.add.collider(this.player,this.DecorLayer4);
+
     // Text
     this.add.text(250, 570, 'Hooray! You have successfully escape', {font: '70px Futura PT Medium', fill: '#272e66' });
     this.add.text(500, 670, 'Press spacebar to restart', {font: '40px Futura PT Medium', fill: '#272e66'});

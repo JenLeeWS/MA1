@@ -150,6 +150,11 @@ class level03 extends Phaser.Scene {
     //make camera follow player
     this.cameras.main.startFollow(this.player);
 
+    //Collision
+    this.physics.add.collider(this.player,this.WallLayer3);
+    this.physics.add.collider(this.player,this.FurnitureLayer3);
+    this.physics.add.collider(this.player,this.DecorLayer3);
+
     console.log("showInventory");
 
     // start another scene in parallel

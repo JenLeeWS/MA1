@@ -143,4 +143,4 @@ class preloadScene extends Phaser.Scene {
 
 } // end of class
 
-window.heart = 3;
+
