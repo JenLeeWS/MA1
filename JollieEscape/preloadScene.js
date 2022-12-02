@@ -43,6 +43,11 @@ class preloadScene extends Phaser.Scene {
         this.add.text(850,1120, 'Welcome to escape game', {font: '30px Futura PT Medium', fill: '#272e66' });
         this.add.text(850, 1160, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
 
+        console.log("showInventory");
+
+        // start another scene in parallel
+        this.scene.stop("showInventory");
+
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
         //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
