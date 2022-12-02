@@ -49,9 +49,10 @@ class preloadScene extends Phaser.Scene {
         this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.1);
         this.bgMusic.play();
 
-        //this.music.play()
-        //window.music = this.music
-                 
+        //reload 3 hearts 
+        window.heart = 3;
+        window.key = 0;
+        
         var spaceDown = this.input.keyboard.addKey('SPACE');
         var key1 = this.input.keyboard.addKey(49);
         var key2 = this.input.keyboard.addKey(50);
