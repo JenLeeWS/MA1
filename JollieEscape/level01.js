@@ -21,7 +21,7 @@ class level01 extends Phaser.Scene {
 
     // Call to update inventory
     this.time.addEvent({
-      delay: 500,
+      delay: 100,
       callback: updateInventory,
       callbackScope: this,
       loop: false,
@@ -70,7 +70,7 @@ class level01 extends Phaser.Scene {
     // Add main player here with physics.add.sprite
     var startPoint = map1.findObject("ObjectLayer", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
-    this.player.setScale(1.3);
+    this.player.setScale(1.4);
     this.player.setCollideWorldBounds(true);
     window.player = this.player;
 
@@ -135,6 +135,7 @@ class level01 extends Phaser.Scene {
     this.physics.add.collider(this.player,this.FurnitureLayer);
     this.physics.add.collider(this.player,this.DecorLayer);
 
+    
     console.log("showInventory");
 
     // start another scene in parallel
@@ -146,17 +147,11 @@ class level01 extends Phaser.Scene {
   //'Player anims
   update() {
 
-    if (this.player.x > 1855 && this.player.y && this.player.y < 678){
-      console.log("level02")
-      this.level02();
-    }
-   
-    else {
-
-        this.player.setVelocity(0);
-
-    }
-
+    // if (this.player.x > 1855 && this.player.y && this.player.y < 678){
+    //   console.log("level02")
+    //   this.level02();
+    // }
+  
     if (this.cursors.left.isDown)
     {
         this.player.setVelocityX(-500);
@@ -182,6 +177,25 @@ class level01 extends Phaser.Scene {
         this.player.setVelocity(0);
     }
 
+    if 
+    (this.player.x > 1822 &&
+    this.player.y > 647 &&
+    this.player.y < 727 &&
+    window.key > 3)
+    {
+      console.log("collected keys", window.key);
+      this.level02();
+    }
+
+    if 
+    (this.player.x > 1822 &&
+    this.player.y > 647 &&
+    this.player.y < 727 &&
+    window.key < 4)
+    {
+      console.log("no keys", window.key);
+      
+    }
     
   } /////////////////// end of update //////////////////////////////
 
@@ -228,6 +242,10 @@ collectKey(player, key){
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play();
+             
+  window.key++;
+  updateInventory.call(this)
+ 
  }
 
     // Function to jump to level02

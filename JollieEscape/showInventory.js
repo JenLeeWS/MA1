@@ -14,6 +14,7 @@ class showInventory extends Phaser.Scene {
     preload(){
         //Load heart image
         this.load.image('heart', 'assets/heart.png');
+        this.load.image('key', 'assets/key.png');
     }
  
    create () {
@@ -22,18 +23,32 @@ class showInventory extends Phaser.Scene {
         console.log("***showInventory");
         this.scene.bringToTop("showInventory");
 
-       // Setup heart but visible to false
-       this.heartimg1 = this.add.image (100,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
-       this.heartimg2 = this.add.image (170,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
-       this.heartimg3 = this.add.image (240,50,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+        //black bar
+        var rect = new Phaser.Geom.Rectangle(29, 10, 500, 80);
+        var graphics = this.add.graphics({ fillStyle: { color: '0xffffff' } });
+        graphics.fillRectShape(rect).setScrollFactor(0)
 
-        // Recv an event, call the method
-        this.events.on('inventory', this.updateScreen, this)
+       // Setup heart but visible to false
+       this.heartimg1 = this.add.image (100,43,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+       this.heartimg2 = this.add.image (170,43,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+       this.heartimg3 = this.add.image (240,43,'heart').setScrollFactor(0).setVisible(false).setScale(0.5);
+
+       this.key = this.add.image (370, 50, 'key').setScrollFactor(0).setVisible(true);
+
+               
+       // Recv an event, call the method
+       this.events.on('inventory', this.updateScreen, this)
+
+       //Setup key
+      
+       this.keyNum = this.add.text(450, 23, window.key, {font: '50px Futura PT Medium', fill: '#272e66'}).setScrollFactor(0);
         
     } //end of create
 
     updateScreen(data){
         console.log('Received event inventory', data);
+
+        this.keyNum.setText(data.key);
 
         switch ( data.heart ) {
 

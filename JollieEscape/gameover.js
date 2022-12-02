@@ -27,6 +27,7 @@ class gameover extends Phaser.Scene {
         
         //reload 3 hearts 
         window.heart = 3;
+        window.key = 0;
 
         // 'T' key
         var keyT = this.input.keyboard.addKey(84);
@@ -35,6 +36,11 @@ class gameover extends Phaser.Scene {
             console.log('Try Again');
             this.scene.start("level01");
         }, this );
+
+        console.log("showInventory");
+
+        // start another scene in parallel
+        this.scene.stop("showInventory");
    
     }
 

@@ -8,6 +8,7 @@ function updateInventory() {
     console.log("*** updateInventory()")
     // Emit events showInventory
     this.inventory = {}
+    this.inventory.key = window.key
     this.inventory.heart = window.heart
      
     console.log('*** updateInventory() Emit event', this.inventory)

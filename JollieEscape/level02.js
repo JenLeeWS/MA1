@@ -22,7 +22,7 @@ class level02 extends Phaser.Scene {
 
     // Call to update inventory
     this.time.addEvent({
-      delay: 500,
+      delay: 100,
       callback: updateInventory,
       callbackScope: this,
       loop: false,
@@ -65,7 +65,7 @@ class level02 extends Phaser.Scene {
     // Add main player here with physics.add.sprite
     var startPoint = map2.findObject("ObjectLayer2", (obj) => obj.name === "start");
     this.player = this.physics.add.sprite(startPoint.x, startPoint.y, "Jollie");
-    this.player.setScale(1.3);
+    this.player.setScale(1.4);
     this.player.setCollideWorldBounds(true);
 
     // //key object
@@ -152,18 +152,12 @@ class level02 extends Phaser.Scene {
   //Player anims
   update() {
 
-    if (this.player.x > 1855 && this.player.y && this.player.y < 678){
-      console.log("level03")
-      this.level03();
-    }
+    // if (this.player.x > 1855 && this.player.y && this.player.y < 678){
+    //   console.log("level03")
+    //   this.level03();
+    // }
    
-    else {
-
-        this.player.setVelocity(0);
-      
-    }
-
-    if (this.cursors.left.isDown)
+      if (this.cursors.left.isDown)
     {
         console.log("left")
         this.player.setVelocityX(-500);
@@ -188,6 +182,26 @@ class level02 extends Phaser.Scene {
     else
     {
         this.player.setVelocity(0);
+    }
+
+    if 
+    (this.player.x > 1822 &&
+    this.player.y > 647 &&
+    this.player.y < 727 &&
+    window.key > 10 )
+    {
+      console.log("collected keys", window.key);
+      this.level03();
+    }
+
+    if 
+    (this.player.x > 1822 &&
+    this.player.y > 647 &&
+    this.player.y < 727 &&
+    window.key < 11)
+    {
+      console.log("no keys", window.key);
+      
     }
 
   } /////////////////// end of update //////////////////////////////
@@ -253,6 +267,9 @@ collectKey(player, key){
   key.disableBody(true, true);
   console.log("play sound");
   this.collectkeySnd.play(); 
+
+  window.key++;
+  updateInventory.call(this)
 }
 
 // Function to jump to level03

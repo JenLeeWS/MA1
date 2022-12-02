@@ -29,6 +29,7 @@ class preloadScene extends Phaser.Scene {
        this.load.image("forest", "assets/forest.png");
        this.load.image("intro", "assets/intropage.jpg");
        this.load.image('heart', 'assets/heart.png');
+       this.load.image('key', 'assets/key.png');
        
              
        // Preload any sound and music here
@@ -82,15 +83,11 @@ class preloadScene extends Phaser.Scene {
             this.scene.stop("preloadScene");
             this.scene.start("gameover");
         }, this );
-
-        // this.input.on('pointerdown', function (pointer){
-        //     this.scene.start("level01");
-        // }, this);
-
+        
         spaceDown.on('down', function(){
-            console.log("story");
-            this.scene.start("story");
-            }, this );
+        console.log("story");
+        this.scene.start("story");
+        }, this );
 
     //Jollie anims create
     this.anims.create({
@@ -142,5 +139,6 @@ class preloadScene extends Phaser.Scene {
     } //end of create
 
 } // end of class
+
 
 
