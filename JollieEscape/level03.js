@@ -197,7 +197,7 @@ class level03 extends Phaser.Scene {
     else
     {
         this.player.setVelocity(0);
-        //this.player.anims.stop();
+        this.player.anims.stop();
     }
 
     if 
