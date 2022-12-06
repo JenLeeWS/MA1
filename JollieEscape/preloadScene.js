@@ -42,6 +42,7 @@ class preloadScene extends Phaser.Scene {
                         
         this.add.text(850,1120, 'Welcome to escape game', {font: '30px Futura PT Medium', fill: '#272e66' });
         this.add.text(850, 1160, 'Press spacebar to continue', {font: '30px Futura PT Medium', fill: '#272e66' });
+        this.add.text(125, 1165, 'Created by Lee Wai Sun (001F7120) MA1/Sep 2022', {font: '25px Futura PT Medium', fill: '#272e66'});
 
         console.log("showInventory");
 
