@@ -51,7 +51,7 @@ class preloadScene extends Phaser.Scene {
         // Add any sound and music here
         // ( 0 = mute to 1 is loudest )
         //this.music = this.sound.add('bgMusic').setVolume(0.3) // 10% volume
-        this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.1);
+        this.bgMusic = this.sound.add('bgMusic', {loop: true}).setVolume(0.03);
         this.bgMusic.play();
 
         //reload 3 hearts 
@@ -137,7 +137,7 @@ class preloadScene extends Phaser.Scene {
           key:'float',
           frames: this.anims.generateFrameNumbers('Spirit',
           {start:0, end:2}),
-          frameRate: 1.5,
+          frameRate: 3,
           repeat:-1});
 
           this.add.sprite(1760, 1050, "Jollie").play('right-Jollie').setScale(5.5);
